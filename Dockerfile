@@ -1,8 +1,10 @@
-FROM rounak316/watchdog:builder as builder
-USER root
+FROM rounak316/watchdog:0.0.1 as builder
 
-FROM gcr.io/kaniko-project/executor:latest
-COPY --from=builder   /usr/bin/watchdog/of-watchdog /kaniko/watchdog
-COPY ./test /workspace/
+FROM rounak316/kaniko_test:latest
+COPY --from=builder /go/src/github.com/meddler-io/watchdog/watchdog.bin  /kaniko/watchdog
+
+# COPY ./test /workspace/
 ENTRYPOINT [ "/kaniko/watchdog" ]
+ENV message_queue_topic=tasks_test
+# 
 
