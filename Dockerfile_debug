@@ -6,6 +6,7 @@ COPY --from=builder /go/src/github.com/meddler-io/watchdog/watchdog.bin  /kaniko
 COPY ./config.json kaniko/.docker/config.json
 
 # COPY ./test /workspace/
+ENV __TOPIC__=tasks_test
 ENTRYPOINT [ "/kaniko/watchdog" ]
 # ENV message_queue_topic=tasks_test
 # 
